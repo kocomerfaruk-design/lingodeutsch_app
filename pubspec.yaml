@@ -1,25 +1,21 @@
-name: Build APK
-on:
-  workflow_dispatch:
+name: lingodeutsch_app
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4 # v4 OLARAK GÜNCELLENDİ
-      
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          
-      - name: Paketleri Indir ve Derle
-        run: |
-          flutter create .
-          flutter pub get
-          flutter build apk --release
-          
-      - name: APK Dosyasini Hazirla
-        uses: actions/upload-artifact@v4 # v4 OLARAK GÜNCELLENDİ
-        with:
-          name: LingoDeutsch-Kurulum-Dosyasi
-          path: build/app/outputs/flutter-apk/app-release.apk
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_tts: ^3.8.3 # SES KÜTÜPHANESİ BURADA OLMALI!
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
