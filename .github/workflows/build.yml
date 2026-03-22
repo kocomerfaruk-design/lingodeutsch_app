@@ -1,0 +1,24 @@
+name: Build APK
+on:
+  workflow_dispatch: # Bu satır, senin butona basarak başlatmanı sağlar
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 # Kodlarını depodan çeker
+      
+      - uses: subosito/flutter-action@v2 # Flutter'ı kurar
+        with:
+          channel: 'stable'
+          
+      - name: Paketleri Indir ve Derle
+        run: |
+          flutter pub get
+          flutter build apk --release # Uygulamayı APK'ya dönüştürür
+          
+      - name: APK Dosyasini Hazirla
+        uses: actions/upload-artifact@v3 # Oluşan dosyayı indirmene hazır hale getirir
+        with:
+          name: LingoDeutsch-Kurulum-Dosyasi
+          path: build/app/outputs/flutter-apk/app-release.apk
